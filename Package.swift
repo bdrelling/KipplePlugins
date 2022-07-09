@@ -5,7 +5,7 @@ import PackageDescription
 let package = Package(
     name: "KipplePlugins",
     products: [
-        .plugin(name: "KipplPlugins", targets: [
+        .plugin(name: "KipplePlugins", targets: [
             "Format",
 //            "Lint",
         ])
