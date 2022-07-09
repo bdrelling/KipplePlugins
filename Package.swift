@@ -24,7 +24,6 @@ let package = Package(
                 ]
             ),
             dependencies: [
-                .target(name: "KipplePluginCore"),
                 .product(name: "swiftformat", package: "SwiftFormat"),
             ]
         ),
@@ -37,7 +36,6 @@ let package = Package(
 //                ]
 //            ),
 //            dependencies: [
-//                .target(name: "KipplePluginCore"),
 //                .product(name: "swiftlint", package: "SwiftLint"),
 //            ]
 //        ),
