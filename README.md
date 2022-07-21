@@ -34,7 +34,7 @@ extension FormatPlugin: XcodeCommandPlugin {
     func performCommand(context: XcodePluginContext, arguments: [String]) throws {
         try self.perform(
             swiftformat: try context.tool(named: "swiftformat"),
-            fileFetcher: try context.tool(named: "kipple-file-fetcher"),
+            fileProvider: try context.tool(named: "kipple-file-provider"),
             // FIXME: This needs to detect the version somehow! Detect a .swift-version file, maybe?
             defaultSwiftVersion: "5.7",
             arguments: arguments

@@ -35,7 +35,7 @@ struct FormatPlugin {
 
     private func perform(
         swiftformat: PluginContext.Tool,
-        fileFetcher: PluginContext.Tool,
+        fileProvider: PluginContext.Tool,
         defaultSwiftVersion: String,
         package: Package,
         arguments: [String]
@@ -57,7 +57,7 @@ struct FormatPlugin {
             }
 
             if let templateName = extractor.option(named: "config-template") {
-                return try self.templatedConfigurationFilePath(named: templateName, using: fileFetcher)
+                return try self.templatedConfigurationFilePath(named: templateName, using: fileProvider)
             }
 
             let defaultConfigurationFilePath = "\(package.directory)/.swiftformat"
@@ -66,7 +66,7 @@ struct FormatPlugin {
                 return defaultConfigurationFilePath
             } else {
                 // Return the default template file.
-                return try self.templatedConfigurationFilePath(named: nil, using: fileFetcher)
+                return try self.templatedConfigurationFilePath(named: nil, using: fileProvider)
             }
         }()
 
@@ -164,7 +164,7 @@ struct FormatPlugin {
 
     private func templatedConfigurationFilePath(
         named name: String?,
-        using fileFetcher: PluginContext.Tool
+        using fileProvider: PluginContext.Tool
     ) throws -> String {
         // Create the arguments array with the first argument -- the name of the tool to fetch a configuration file for.
         var arguments = [Self.commandName]
@@ -176,7 +176,7 @@ struct FormatPlugin {
         }
 
         let process = ConfiguredProcess(
-            executablePath: fileFetcher.path.string,
+            executablePath: fileProvider.path.string,
             arguments: arguments
         )
 
@@ -280,7 +280,7 @@ extension FormatPlugin: CommandPlugin {
 
         try self.perform(
             swiftformat: try context.tool(named: Self.commandName),
-            fileFetcher: try context.tool(named: "kipple-file-fetcher"),
+            fileProvider: try context.tool(named: "kipple-file-provider"),
             defaultSwiftVersion: swiftVersion,
             package: context.package,
             arguments: arguments

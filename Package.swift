@@ -12,7 +12,7 @@ let package = Package(
         ]),
     ],
     dependencies: [
-        .package(url: "https://github.com/swift-kipple/PluginSupport", from: "0.1.0"),
+        .package(url: "https://github.com/swift-kipple/PluginSupport", from: "0.1.1"),
         .package(url: "https://github.com/nicklockwood/SwiftFormat", from: "0.49.13"),
 //        .package(url: "https://github.com/Realm/SwiftLint", from: "0.47.1"),
     ],
@@ -28,7 +28,7 @@ let package = Package(
             ),
             dependencies: [
                 .product(name: "swiftformat", package: "SwiftFormat"),
-                .product(name: "kipple-file-fetcher", package: "PluginSupport"),
+                .product(name: "kipple-file-provider", package: "PluginSupport"),
             ]
         ),
 //        .plugin(
