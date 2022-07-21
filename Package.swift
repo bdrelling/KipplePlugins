@@ -1,6 +1,7 @@
 // swift-tools-version:5.6
 
 import PackageDescription
+import Foundation
 
 let package = Package(
     name: "KipplePlugins",
@@ -11,7 +12,7 @@ let package = Package(
         ]),
     ],
     dependencies: [
-        .package(path: "PluginSupport"),
+        .package(url: "https://github.com/swift-kipple/PluginSupport", from: "0.1.0"),
         .package(url: "https://github.com/nicklockwood/SwiftFormat", from: "0.49.13"),
 //        .package(url: "https://github.com/Realm/SwiftLint", from: "0.47.1"),
     ],

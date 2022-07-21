@@ -11,7 +11,7 @@ struct FormatPlugin {
 
     // MARK: Properties
 
-    private let fileManager = FileManager()
+    private let fileManager: FileManager = .default
 
     /// A list of files to exclude by default across all projects.
     ///
