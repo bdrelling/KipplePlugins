@@ -65,19 +65,19 @@ struct FormatPlugin {
         }()
 
         let isDebugging = extractor.flag(named: "debug")
-        let shouldFormatModifiedFilesOnly = extractor.flag(named: "modified-only")
+        let shouldFormatStagedFilesOnly = extractor.flag(named: "staged-only")
 
         let targets = extractor.options(named: "target")
 
-        let filePathsToFormat: [String] = try {
+        let fileToFormat: [String] = try {
             let targets = extractor.options(named: "target")
 
             guard targets.isEmpty else {
                 return targets
             }
 
-            if shouldFormatModifiedFilesOnly {
-                return try self.modifiedFilePaths()
+            if shouldFormatStagedFilesOnly {
+                return try self.stagedFilePaths()
             }
 
             return ["."]
@@ -89,24 +89,24 @@ struct FormatPlugin {
             print("------------------------------------------------------------")
             print("DEBUG INFO")
             print("------------------------------------------------------------")
-            print("=> Executable Path:     \(executablePath)")
-            print("=> Swift Version:       \(swiftVersion)")
-            print("=> Configuration File:  \(configurationFilePath)")
-            print("=> Debugging?:          \(isDebugging)")
-            print("=> Modified Only?:      \(shouldFormatModifiedFilesOnly)")
-            print("=> Targets:             \(targets)")
+            print("=> Executable Path:       \(executablePath)")
+            print("=> Swift Version:         \(swiftVersion)")
+            print("=> Configuration File:    \(configurationFilePath)")
+            print("=> Debugging?:            \(isDebugging)")
+            print("=> Staged Files Only?:    \(shouldFormatStagedFilesOnly)")
+            print("=> Targets:               \(targets)")
 
             // Adjust printing of file paths for prettier output depending on count.
-            if filePathsToFormat.count > 1 {
-                print("=> Format File Paths:")
+            if fileToFormat.count > 1 {
+                print("=> Formatted File Paths:")
 
-                for filePath in filePathsToFormat {
-                    print("     - \(filePath)")
+                for file in fileToFormat {
+                    print("     - \(file)")
                 }
-            } else if let firstFilePathToFormat = filePathsToFormat.first {
-                print("=> Format File Paths:   \(firstFilePathToFormat)")
+            } else if let firstFile = fileToFormat.first {
+                print("=> Formatted File Paths:  \(firstFile)")
             } else {
-                print("=> Format File Paths:   ?")
+                print("=> Formatted File Paths:  ?")
             }
 
             print("=> Arguments:           \(arguments)")
@@ -120,13 +120,13 @@ struct FormatPlugin {
         // Each set of arguments is an array, which is flattened into a single String array before passing into the Process.
         let arguments = [
             // First, include all files that should be formatted.
-            filePathsToFormat,
+            fileToFormat,
             ["--swiftversion", swiftVersion],
             ["--config", configurationFilePath],
             // SwiftFormat caches outside of the package directory, which is inaccessible to this package, so we cannot cache results.
             // TODO: Investigate alternative directory or system of caching, or open SwiftFormat issue to address?
             ["--cache", "ignore"],
-            ["--exclude", excludedFiles.joined(separator: ",")],
+            ["--exclude", self.excludedFiles.joined(separator: ",")],
             extractor.remainingArguments,
         ].flatMap { $0 }
 
@@ -142,6 +142,11 @@ struct FormatPlugin {
             executablePath: executablePath,
             arguments: arguments
         )
+
+        // If we formatted staged files, we need to add them back to the commit.
+        if shouldFormatStagedFilesOnly {
+            try self.addFilesToCommit(files: fileToFormat)
+        }
     }
 
     private func runSwiftFormat(executablePath: String, arguments: [String]) throws {
@@ -179,7 +184,7 @@ struct FormatPlugin {
         return filePath
     }
 
-    private func modifiedFilePaths() throws -> [String] {
+    private func stagedFilePaths() throws -> [String] {
         let command = "git diff --diff-filter=d --staged --name-only"
         let output = try ConfiguredProcess.bash(command: command).run()
 
@@ -190,6 +195,13 @@ struct FormatPlugin {
             .filter { $0.hasSuffix(".swift") }
             // Map from String.Subsequence back to String.
             .map(String.init)
+    }
+
+    private func addFilesToCommit(files: [String]) throws {
+        let commands = files.map { "git add \($0)" }
+        let combinedCommand = commands.joined(separator: " && ")
+
+        try ConfiguredProcess.bash(command: combinedCommand).run()
     }
 
     private func filePaths(forTargets targets: [String], in package: Package) throws -> [String] {
