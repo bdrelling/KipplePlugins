@@ -31,6 +31,7 @@ struct ConfiguredProcess {
         self.process.standardOutput = self.outputPipe
     }
 
+    @discardableResult
     func run() throws -> String {
         // Run the process.
         try self.process.run()
