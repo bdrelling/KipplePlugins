@@ -12,7 +12,7 @@ let package = Package(
         ]),
     ],
     dependencies: [
-        .package(url: "https://github.com/swift-kipple/PluginSupport", from: "0.1.1"),
+        .package(url: "https://github.com/swift-kipple/PluginSupport", from: "0.1.2"),
         .package(url: "https://github.com/nicklockwood/SwiftFormat", from: "0.49.13"),
 //        .package(url: "https://github.com/Realm/SwiftLint", from: "0.47.1"),
     ],
