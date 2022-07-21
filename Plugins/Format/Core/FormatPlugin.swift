@@ -5,6 +5,10 @@ import PackagePlugin
 
 @main
 struct FormatPlugin {
+    // MARK: Constants
+
+    private static let commandName = "swiftformat"
+
     // MARK: Properties
 
     private let fileManager = FileManager()
@@ -131,7 +135,7 @@ struct FormatPlugin {
         ].flatMap { $0 }
 
         if isDebugging {
-            let command = "$ swift run swiftformat \(arguments.joined(separator: " "))"
+            let command = "$ swift run \(Self.commandName) \(arguments.joined(separator: " "))"
 
             print("=> SwiftFormat Command:")
             print(command)
@@ -161,7 +165,7 @@ struct FormatPlugin {
         using fileFetcher: PluginContext.Tool
     ) throws -> String {
         // Create the arguments array with the first argument -- the name of the tool to fetch a configuration file for.
-        var arguments = ["swiftformat"]
+        var arguments = [Self.commandName]
 
         // If name is included, add it to the arguments array.
         // Otherwise, leave it empty and let the executable handle it.
@@ -273,7 +277,7 @@ extension FormatPlugin: CommandPlugin {
         let swiftVersion = "\(toolsVersion.major).\(toolsVersion.minor).\(toolsVersion.patch)"
 
         try self.perform(
-            swiftformat: try context.tool(named: "swiftformat"),
+            swiftformat: try context.tool(named: Self.commandName),
             fileFetcher: try context.tool(named: "kipple-file-fetcher"),
             defaultSwiftVersion: swiftVersion,
             package: context.package,
