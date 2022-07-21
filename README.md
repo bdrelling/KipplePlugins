@@ -6,12 +6,22 @@ A collection of Swift Package Manager plugins to be used across a variety of Swi
 
 ## To Do
 
+### General
+
+- [x] Include default configuration files (so repositories don't need their own) via `PluginSupport` module.
+- [x] Allow repository to override the configuration file used with standard local dotfile for the applicable command.
+- [] Add pre-commit installation scripts.
+- [] Add `setup.sh` and other common script files to the project.
+
+### Format
+
 - [x] Add Format command (via SwiftFormat) as Swift Package and Xcode plugins.
+- [x] Add functionality for formatting staged files only.
+
+### Lint
+
 - [] Add Lint command (via SwiftLint) as Swift Package and Xcode plugin.
-- [x] Include default configuration files (so repositories don't need their own).
-- [x] Allow repository to override the configuration file used with standard local dotfile.
-- [] Add a pre-commit git hook installation script.
-- [] Add the setup script.
+- [] Add functionality for linting staged files only.
 
 
 # Example Xcode Plugin:
