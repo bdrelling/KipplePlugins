@@ -8,13 +8,29 @@ let package = Package(
         .plugin(name: "KipplePlugins", targets: [
             "Format",
 //            "Lint",
-        ])
+        ]),
     ],
     dependencies: [
         .package(url: "https://github.com/nicklockwood/SwiftFormat", from: "0.49.11"),
 //        .package(url: "https://github.com/Realm/SwiftLint", from: "0.47.1"),
     ],
     targets: [
+        // Targets
+        .target(
+            name: "PluginsCore",
+            dependencies: [],
+            resources: [
+                .process("Resources"),
+            ]
+        ),
+        // Test Targets
+        .testTarget(
+            name: "PluginsCoreTests",
+            dependencies: [
+                .target(name: "PluginsCore"),
+            ]
+        ),
+        // Plugins
         .plugin(
             name: "Format",
             capability: .command(

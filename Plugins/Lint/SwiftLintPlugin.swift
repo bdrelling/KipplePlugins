@@ -37,9 +37,9 @@ extension SwiftLintPlugin: CommandPlugin {
 }
 
 #if canImport(XcodeProjectPlugin)
-    import XcodeProjectPlugin
+import XcodeProjectPlugin
 
-    extension SwiftLintPlugin: XcodeCommandPlugin {
-        func performCommand(context: XcodePluginContext, arguments: [String]) throws {}
-    }
+extension SwiftLintPlugin: XcodeCommandPlugin {
+    func performCommand(context: XcodePluginContext, arguments: [String]) throws {}
+}
 #endif
