@@ -64,3 +64,18 @@ struct ConfiguredProcess {
 enum ProcessError: Error {
     case outputNotFound
 }
+
+// MARK: - Convenience
+
+extension ConfiguredProcess {
+    static func bash(
+        command: String,
+        environment: [String: String]? = nil,
+        workingDirectory: String? = nil
+    ) -> ConfiguredProcess {
+        .init(
+            executablePath: "/bin/bash",
+            arguments: ["-c", command]
+        )
+    }
+}

@@ -12,11 +12,11 @@ final class FileClerkTests: XCTestCase {
     }
 
     func testSwiftFormatFilesAreValid() throws {
-        try self.evaluate(.swiftformat, expectedNumberOfFiles: 1)
+        try evaluate(.swiftformat, expectedNumberOfFiles: 1)
     }
 
     func testSwiftLintFilesAreValid() throws {
-        try self.evaluate(.swiftlint, expectedNumberOfFiles: 1)
+        try evaluate(.swiftlint, expectedNumberOfFiles: 1)
     }
 }
 

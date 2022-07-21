@@ -6,15 +6,15 @@ import PackagePlugin
 @main
 struct SwiftLintPlugin {
     private func perform(
-        swiftformat: PluginContext.Tool,
-        defaultSwiftVersion: String,
-        arguments: [String],
-        targetPaths: ([String]) throws -> [String]
+        swiftformat _: PluginContext.Tool,
+        defaultSwiftVersion _: String,
+        arguments _: [String],
+        targetPaths _: ([String]) throws -> [String]
     ) throws {}
 }
 
 extension SwiftLintPlugin: CommandPlugin {
-    func performCommand(context: PluginContext, arguments: [String]) throws {
+    func performCommand(context: PluginContext, arguments _: [String]) throws {
         let tool = try context.tool(named: "swiftlint")
         let toolUrl = URL(fileURLWithPath: tool.path.string)
 
@@ -40,6 +40,6 @@ extension SwiftLintPlugin: CommandPlugin {
 import XcodeProjectPlugin
 
 extension SwiftLintPlugin: XcodeCommandPlugin {
-    func performCommand(context: XcodePluginContext, arguments: [String]) throws {}
+    func performCommand(context _: XcodePluginContext, arguments _: [String]) throws {}
 }
 #endif
