@@ -1,14 +1,14 @@
 // Copyright © 2022 Brian Drelling. All rights reserved.
 
-public enum ConfigurationTool: CaseIterable {
-    case swiftFormat
-    case swiftLint
+public enum ConfigurationTool: String, Codable, CaseIterable {
+    case swiftformat
+    case swiftlint
 
     var fileExtension: String {
         switch self {
-        case .swiftFormat:
+        case .swiftformat:
             return "swiftformat"
-        case .swiftLint:
+        case .swiftlint:
             return "swiftlint.yml"
         }
     }

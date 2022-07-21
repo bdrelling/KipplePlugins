@@ -7,15 +7,16 @@ import PackagePlugin
 struct SwiftFormatPlugin {
     private func perform(
         swiftformat: PluginContext.Tool,
+        fileFetcher: PluginContext.Tool,
         defaultSwiftVersion: String,
-        defaultConfigurationFile: String,
         arguments: [String],
         targetPaths: ([String]) throws -> [String]
     ) throws {
         var extractor = ArgumentExtractor(arguments)
 
         let swiftVersion = extractor.option(named: "swiftversion", defaultValue: defaultSwiftVersion)
-        let configurationFile = extractor.option(named: "config", defaultValue: defaultConfigurationFile)
+        let configurationFileName = extractor.option(named: "config")
+        let configurationFilePath = try self.configurationFilePath(named: configurationFileName, using: fileFetcher)
 
         let shouldLogVerbosely = extractor.flag(named: "verbose")
 
@@ -30,7 +31,7 @@ struct SwiftFormatPlugin {
             print("------------------------------------------------------------")
             print("=> Executable Path:     \(executableURL.path)")
             print("=> Swift Version:       \(swiftVersion)")
-            print("=> Configuration File:  \(configurationFile)")
+            print("=> Configuration File:  \(configurationFilePath)")
             print("=> Verbose?:            \(shouldLogVerbosely)")
             print("=> Targets:             \(targets)")
             print("=> Arguments:           \(arguments)")
@@ -42,7 +43,7 @@ struct SwiftFormatPlugin {
             // First, include all files that should be formatted.
             !targets.isEmpty ? targets : ["."],
             ["--swiftversion", swiftVersion],
-            ["--config", configurationFile],
+            ["--config", configurationFilePath],
             // SwiftFormat caches outside of the package directory, which is inaccessible to this package, so we cannot cache results.
             // TODO: Investigate alternative directory or system of caching, or open SwiftFormat issue to address?
             ["--cache", "ignore"],
@@ -62,6 +63,31 @@ struct SwiftFormatPlugin {
 
         try process.run()
         process.waitUntilExit()
+    }
+
+    private func configurationFilePath(named name: String?, using fileFetcher: PluginContext.Tool) throws -> String {
+        // Create the arguments array with the first argument -- the name of the tool to fetch a configuration file for.
+        var arguments = ["swiftformat"]
+
+        // If name is included, add it to the arguments array.
+        // Otherwise, leave it empty and let the executable handle it.
+        if let name = name {
+            arguments.append(name)
+        }
+
+        let process = ConfiguredProcess(
+            executablePath: fileFetcher.path.string,
+            arguments: arguments
+        )
+
+        let output = try process.run()
+        let regexPattern = "[A-Z_]*="
+
+        let filePath = output
+            .replacingOccurrences(of: regexPattern, with: "", options: .regularExpression)
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+
+        return filePath
     }
 }
 
@@ -98,15 +124,13 @@ enum ArgumentExtractionError: Error {
 
 extension SwiftFormatPlugin: CommandPlugin {
     func performCommand(context: PackagePlugin.PluginContext, arguments: [String]) async throws {
-        let defaultConfigurationFile = context.package.directory.appending("Sources/PluginsCore/Resources/default.swiftformat").string
-
         let toolsVersion = context.package.toolsVersion
         let swiftVersion = "\(toolsVersion.major).\(toolsVersion.minor).\(toolsVersion.patch)"
 
         try self.perform(
             swiftformat: try context.tool(named: "swiftformat"),
+            fileFetcher: try context.tool(named: "kipple-file-fetcher"),
             defaultSwiftVersion: swiftVersion,
-            defaultConfigurationFile: defaultConfigurationFile,
             arguments: arguments
         ) { targets in
             try context.package.targets(named: targets).map(\.directory.string)
@@ -121,6 +145,7 @@ extension SwiftFormatPlugin: XcodeCommandPlugin {
     func performCommand(context: XcodePluginContext, arguments: [String]) throws {
         try self.perform(
             swiftformat: try context.tool(named: "swiftformat"),
+            fileFetcher: try context.tool(named: "kipple-file-fetcher"),
             defaultSwiftVersion: "5.7",
             arguments: arguments
         ) { targetNames in

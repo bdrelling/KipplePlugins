@@ -1,12 +1,14 @@
 // Copyright © 2022 Brian Drelling. All rights reserved.
 
-public struct ConfigurationFile {
+public struct ConfigurationFile: Codable {
+    public static let defaultFileName = "default"
+
     public let tool: ConfigurationTool
     public let name: String
     public let path: String
 
     public var isDefault: Bool {
-        self.name == "default"
+        self.name == Self.defaultFileName
     }
 
     init(

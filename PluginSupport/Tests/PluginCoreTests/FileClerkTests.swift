@@ -1,6 +1,6 @@
 // Copyright © 2022 Brian Drelling. All rights reserved.
 
-import PluginsCore
+import PluginCore
 import XCTest
 
 final class FileClerkTests: XCTestCase {
@@ -12,11 +12,11 @@ final class FileClerkTests: XCTestCase {
     }
 
     func testSwiftFormatFilesAreValid() throws {
-        try self.evaluate(.swiftFormat, expectedNumberOfFiles: 1)
+        try self.evaluate(.swiftformat, expectedNumberOfFiles: 1)
     }
 
     func testSwiftLintFilesAreValid() throws {
-        try self.evaluate(.swiftLint, expectedNumberOfFiles: 1)
+        try self.evaluate(.swiftlint, expectedNumberOfFiles: 1)
     }
 }
 
