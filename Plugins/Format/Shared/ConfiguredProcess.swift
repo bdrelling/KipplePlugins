@@ -7,10 +7,6 @@ struct ConfiguredProcess {
     private let process = Process()
     private let outputPipe = Pipe()
 
-    
-    
-    
-    
     init(
         executablePath: String,
         arguments: [String]? = nil,
