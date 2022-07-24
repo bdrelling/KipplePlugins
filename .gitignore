@@ -24,7 +24,6 @@ playground.xcworkspace
 
 # Visual Studio Code
 .vscode
-.devcontainer
 
 ## Swift Package Manager
 Packages
