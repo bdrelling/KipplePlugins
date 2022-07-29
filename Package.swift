@@ -5,16 +5,16 @@ import Foundation
 
 let package = Package(
     name: "KipplePlugins",
+    platforms: [
+        .macOS(.v10_15),
+    ],
     products: [
         .plugin(name: "KipplePlugins", targets: [
             "Format",
-//            "Lint",
         ]),
     ],
     dependencies: [
-        .package(url: "https://github.com/swift-kipple/PluginSupport", from: "0.1.2"),
-        .package(url: "https://github.com/nicklockwood/SwiftFormat", from: "0.49.13"),
-//        .package(url: "https://github.com/Realm/SwiftLint", from: "0.47.1"),
+        .package(url: "https://github.com/swift-kipple/Tools", from: "0.2.0"),
     ],
     targets: [
         // Plugins
@@ -23,25 +23,12 @@ let package = Package(
             capability: .command(
                 intent: .custom(verb: "format", description: "Format swift files."),
                 permissions: [
-                    .writeToPackageDirectory(reason: "Format Swift files using SwiftFormat."),
+                    .writeToPackageDirectory(reason: "Format Swift files."),
                 ]
             ),
             dependencies: [
-                .product(name: "swiftformat", package: "SwiftFormat"),
-                .product(name: "kipple-file-provider", package: "PluginSupport"),
+                .product(name: "kipple", package: "Tools"),
             ]
         ),
-//        .plugin(
-//            name: "Lint",
-//            capability: .command(
-//                intent: .custom(verb: "lint", description: "Lint swift files."),
-//                permissions: [
-//                    .writeToPackageDirectory(reason: "Lint Swift files using SwiftLint."),
-//                ]
-//            ),
-//            dependencies: [
-//                .product(name: "swiftlint", package: "SwiftLint"),
-//            ]
-//        ),
     ]
 )
