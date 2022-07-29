@@ -14,7 +14,7 @@ let package = Package(
         ]),
     ],
     dependencies: [
-        .package(url: "https://github.com/swift-kipple/Tools", from: "0.2.0"),
+        .package(url: "https://github.com/swift-kipple/Tools", from: "0.2.1"),
     ],
     targets: [
         // Plugins

@@ -1,8 +1,14 @@
 # KipplePlugins
 
-A collection of Swift Package Manager plugins to be used across a variety of Swift projects.
+<!-- [![CI Status](https://github.com/swift-kipple/Plugins/actions/workflows/tests.yml/badge.svg)](https://github.com/swift-kipple/Plugins/actions/workflows/tests.yml) -->
+[![Latest Release](https://img.shields.io/github/v/tag/swift-kipple/Plugins?color=blue&label=latest)](https://github.com/swift-kipple/Plugins/releases)
+[![Swift Compatibility](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fswift-kipple%2FPlugins%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/swift-kipple/Plugins)
+[![Platform Compatibility](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fswift-kipple%2FPlugins%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/swift-kipple/Plugins)
+[![License](https://img.shields.io/github/license/swift-kipple/Plugins)](https://github.com/swift-kipple/Plugins/blob/main/LICENSE)
 
->:warning: The code in this library has been provided as-is. It includes limited documentation and testing. If you do decide to pull in this package for any reason and find any issues, pull requests are welcome.
+A collection of Swift Package Manager plugins.
+
+> :warning: The code in this library has been made public as-is for the purposes of education, discovery, and personal use. Is it **NOT** production-ready; however, if you're interested in leveraging this library as a dependency for your own projects, feel free to do so (at your own risk) and open GitHub issues for any problems you encounter and I will do my best to provide support.
 
 ## To Do
 
@@ -23,8 +29,7 @@ A collection of Swift Package Manager plugins to be used across a variety of Swi
 - [] Add Lint command (via SwiftLint) as Swift Package and Xcode plugin.
 - [] Add functionality for linting staged files only.
 
-
-# Example Xcode Plugin:
+# Example Xcode Plugin
 
 ```swift
 #if canImport(XcodeProjectPlugin)
