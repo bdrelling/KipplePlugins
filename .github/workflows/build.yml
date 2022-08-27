@@ -1,0 +1,15 @@
+name: Build
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  swift_test:
+    uses: bdrelling/workflows/.github/workflows/swift_test_plugin.yml@main
+    with:
+      scheme: KipplePlugins-Package
+      subcommand: build
