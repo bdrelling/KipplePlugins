@@ -1,4 +1,4 @@
-// swift-tools-version:5.6
+// swift-tools-version: 5.7
 
 import PackageDescription
 import Foundation
@@ -6,7 +6,7 @@ import Foundation
 let package = Package(
     name: "KipplePlugins",
     platforms: [
-        .macOS(.v10_15),
+        .macOS(.v13),
     ],
     products: [
         .plugin(name: "KipplePlugins", targets: [
@@ -14,7 +14,7 @@ let package = Package(
         ]),
     ],
     dependencies: [
-        .package(url: "https://github.com/swift-kipple/Tools", from: "0.3.0"),
+        .package(url: "https://github.com/swift-kipple/Tools", from: "0.4.0"),
     ],
     targets: [
         // Plugins

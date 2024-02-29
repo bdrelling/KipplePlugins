@@ -16,4 +16,4 @@ jobs:
       scheme: KipplePlugins-Package
       subcommand: build
       platforms: macOS Linux
-      swift-versions: 5.6 5.7
+      # swift-versions: default
