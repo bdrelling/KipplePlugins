@@ -14,7 +14,7 @@ let package = Package(
         ]),
     ],
     dependencies: [
-        .package(url: "https://github.com/swift-kipple/Tools", from: "0.4.0"),
+        .package(url: "https://github.com/bdrelling/KippleTools", .upToNextMinor(from: "0.5.0")),
     ],
     targets: [
         // Plugins
@@ -27,7 +27,7 @@ let package = Package(
                 ]
             ),
             dependencies: [
-                .product(name: "kipple", package: "Tools"),
+                .product(name: "kipple", package: "KippleTools"),
             ]
         ),
     ]

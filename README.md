@@ -1,10 +1,10 @@
 # KipplePlugins
 
-[![CI Status](https://github.com/swift-kipple/Plugins/actions/workflows/tests.yml/badge.svg)](https://github.com/swift-kipple/Plugins/actions/workflows/tests.yml)
-[![Latest Release](https://img.shields.io/github/v/tag/swift-kipple/Plugins?color=blue&label=)](https://github.com/swift-kipple/Plugins/tags)
-[![Swift Compatibility](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fswift-kipple%2FPlugins%2Fbadge%3Ftype%3Dswift-versions&label=)](https://swiftpackageindex.com/swift-kipple/Plugins)
-[![Platform Compatibility](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fswift-kipple%2FPlugins%2Fbadge%3Ftype%3Dplatforms&label=)](https://swiftpackageindex.com/swift-kipple/Plugins)
-[![License](https://img.shields.io/github/license/swift-kipple/Plugins?label=)](https://github.com/swift-kipple/Plugins/blob/main/LICENSE)
+[![CI Status](https://github.com/bdrelling/KipplePlugins/actions/workflows/tests.yml/badge.svg)](https://github.com/bdrelling/KipplePlugins/actions/workflows/tests.yml)
+[![Latest Release](https://img.shields.io/github/v/tag/bdrelling/KipplePlugins?color=blue&label=)](https://github.com/bdrelling/KipplePlugins/tags)
+[![Swift Compatibility](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fbdrelling%2FKipplePlugins%2Fbadge%3Ftype%3Dswift-versions&label=)](https://swiftpackageindex.com/bdrelling/KipplePlugins)
+[![Platform Compatibility](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fbdrelling%2FKipplePlugins%2Fbadge%3Ftype%3Dplatforms&label=)](https://swiftpackageindex.com/bdrelling/KipplePlugins)
+[![License](https://img.shields.io/github/license/bdrelling/KipplePlugins?label=)](https://github.com/bdrelling/KipplePlugins/blob/main/LICENSE)
 
 A collection of Swift Package Manager plugins.
 
