@@ -1,4 +1,4 @@
-name: Tests
+name: Apple Tests
 
 on:
   workflow_dispatch:
@@ -16,5 +16,5 @@ jobs:
     with:
       scheme: KipplePlugins-Package
       subcommand: build
-      platforms: macOS Linux
+      platforms: Linux
       # code-coverage: true
